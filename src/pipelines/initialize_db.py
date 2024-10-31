@@ -53,14 +53,10 @@ def initialize_db(sql_uri: str, vectordb_folder: str) -> None:
     """
 
     # reading df
-    og_df = pd.read_csv(
-        "./data/ePBE_ Sedimentology_Main_Working_Template - sample fro aliff 2.csv",
-        low_memory=False,
-    )
-    veg_df = pd.read_csv("./data/vegetables.csv")
+    df = pd.read_csv("./data/df.csv")
 
     # mapping table name to corresponding dfs
-    sql_df_mapping = {"oil_and_gas": og_df, "vegetables": veg_df}
+    sql_df_mapping = {"housing": df}
 
     # # remove db if exists
     # db_path = "./data/sample.db"
@@ -129,4 +125,4 @@ if __name__ == "__main__":
 
     # initializing vectorstores and databases
     initialize_db(sql_uri, vectordb_folder)
-    initialize_unstructured_vectorstore(unstructured_vectorstore_path)
+    # initialize_unstructured_vectorstore(unstructured_vectorstore_path)

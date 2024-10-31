@@ -61,6 +61,7 @@ class SQLAgent(Agent):
             SQLCustomTools.plot_graph,
             SQLCustomTools.list_database(),
             SQLCustomTools.info_database(),
+            SQLCustomTools.sql_query_checker(),
         ]
         if isinstance(SQLAgent.get_llm(), AzureChatOpenAI):
             return cls._create_agent_executor(tools, create_openai_tools_agent)

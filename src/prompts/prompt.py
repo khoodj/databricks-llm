@@ -50,7 +50,7 @@ AGENT_SUPERVISOR_PROMPT = (
 
 PLOT_GRAPH_INSTRUCTIONS = """Create a graph with the following steps:
 
-Step 1: Try to create a connection to a sqlite database engine with the create_engine function from sqlalchemy. The path to the database is "{db_path}"
+Step 1: Try to create a connection to a database engine with the create_engine function from sqlalchemy. The path to the database is "{db_path}"
 
 Step 2: Execute the sql query below and load the table into a pandas dataframe.
 <SQL>

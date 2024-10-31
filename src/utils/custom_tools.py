@@ -31,7 +31,8 @@ from ..prompts.prompt import *
 import os
 import yaml
 import pandas as pd
-import matplotlib.pyplot as plt
+import math
+import sqlite3
 
 with open("./conf/config.yaml", "r") as file:
     config = yaml.safe_load(file)
@@ -105,19 +106,50 @@ class SQLCustomTools(SQL_LLM, LangchainDB):
             pd.DataFrame: The result of the SQL query.
         """
 
-        df = None
+        df = pd.DataFrame()
 
-        try:
-            # creating a dataframe from the SQL query
-            engine = create_engine(config["sql_uri"], echo=False)
-            df = pd.read_sql(sql_query, engine)
-        except Exception as e:
-            # return an empty dataframe
-            print(e)
-            df = pd.DataFrame()
-        finally:
-            # disposing engine
-            engine.dispose()
+        sql_uri = config["sql_uri"]
+        if "sqlite" in sql_uri:
+            try:
+                # Get the current directory
+                current_directory = os.getcwd()
+
+                # Define the database filename
+                folder_name = "data/"
+                db_filename = "housing.db"
+
+                # Create the full path to the database file
+                db_path = os.path.join(current_directory, folder_name, db_filename)
+                conn = sqlite3.connect(db_path)
+
+                # Register the custom functions
+                conn.create_function("SQRT", 1, math.sqrt)
+                conn.create_function("POWER", 2, math.pow)
+                conn.create_function("RADIANS", 1, math.radians)
+                conn.create_function("ASIN", 1, math.asin)
+                conn.create_function("ACOS", 1, math.acos)
+                conn.create_function("SIN", 1, math.sin)
+                conn.create_function("COS", 1, math.cos)
+
+                # reading the dataframe
+                df = pd.read_sql(sql_query, conn)
+            except Exception as e:
+                # return an empty dataframe
+                print(e)
+                df = pd.DataFrame()
+            finally:
+                conn.close()
+
+        else:
+            try:
+                engine = create_engine(config["sql_uri"], echo=False)
+                df = pd.read_sql(sql_query, engine)
+            except Exception as e:
+                # return an empty dataframe
+                print(e)
+                df = pd.DataFrame()
+            finally:
+                engine.dispose()
 
         return df
 
