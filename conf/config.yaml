@@ -1,0 +1,21 @@
+# SQL config
+sql_uri: "sqlite:///./data/housing.db"
+vectordb_folder: "./data/"
+sql_azure_endpoint: "https://ptsg-5talendopenai01.openai.azure.com/"
+sql_openai_api_type: "azure"
+sql_openai_api_version: "2024-03-01-preview"
+sql_deployment_llm_name: "myTalentX_GPTo"
+sql_deployment_embeddings_name: "myTalentX_Embedding"
+sql_temperature: 0
+sql_max_rows: 1.0e+9
+sql_chunk_size: 512
+
+# RAG config
+pdf_azure_endpoint: "https://ptsg-5talendopenai01.openai.azure.com/"
+pdf_openai_api_type: "azure"
+pdf_openai_api_version: "2024-03-01-preview"
+pdf_deployment_llm_name: "myTalentX_GPTo"
+pdf_deployment_embeddings_name: "text-embedding-ada-002"
+pdf_temperature: 0
+pdf_chunk_size: 512
+pdf_vectorstore_path: "./data/pdf_vectorstore"
