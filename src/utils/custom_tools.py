@@ -152,7 +152,11 @@ class SQLCustomTools(SQL_LLM, LangchainDB):
             )
 
             img_path = chain.invoke(
-                PLOT_GRAPH_INSTRUCTIONS.format(sql_query=sql_query, question=question)
+                PLOT_GRAPH_INSTRUCTIONS.format(
+                    sql_query=sql_query,
+                    question=question,
+                    db_path=config.get("sql_uri", ""),
+                )
             ).file_path
 
             img_path = img_path.replace("\n", "")

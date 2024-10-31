@@ -20,11 +20,10 @@ class LambdaFunctions:
 
         # removing graph paths from the output response
         for tup in intermediate_steps:
-            if RAGSQLTools.sql_chain.name == getattr(tup[0], "tool"):
-                graph_path_ls: str = tup[1][1]
-                for graph_path in graph_path_ls:
-                    pattern = r"!\[.*?\]\(" + re.escape(graph_path) + r"\)"
-                    output = re.sub(pattern, "", output)
+            if getattr(tup[0], "tool") == "plot_graph":
+                graph_path = tup[1]
+                pattern = r"!\[.*?\]\(" + re.escape(graph_path) + r"\)"
+                output = re.sub(pattern, "", output)
 
         info_dict["output"] = output
 
