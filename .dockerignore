@@ -1,0 +1,5 @@
+# environment files
+.env
+
+# requirements files because some libararies are windows specific
+*.txt

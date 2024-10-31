@@ -1,0 +1,13 @@
+version: "3.8" # Specify the version of Docker Compose to use
+
+services:
+  streamlit:
+    build:
+      context: . # The context in which to build the image, typically the current directory
+      dockerfile: Dockerfile # The name of the Dockerfile to use for building the image
+    ports:
+      - "8501:8501" # Map port 8501 on the host to port 8501 in the container
+    environment:
+      - PYTHONUNBUFFERED=1 # Ensures that Python output is sent straight to terminal
+    volumes:
+      - .:/app # Mount the current directory to /app in the container for live updates

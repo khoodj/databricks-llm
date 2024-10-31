@@ -101,9 +101,9 @@ if prompt := st.chat_input("What is your question?"):
 
 # Update the session state with the new messages
 st.session_state.sql_chat_messages = messages
-# Uploader page for CSV or XLSX files
+# Uploader page for CSV files
 st.sidebar.title("Upload Data")
-uploaded_file = st.sidebar.file_uploader("Choose a CSV or XLSX file", type=["csv"])
+uploaded_file = st.sidebar.file_uploader("Choose a CSV file", type=["csv"])
 
 if uploaded_file:
     try:
